@@ -20,5 +20,8 @@ RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 8
 COPY ./MsQuicTest MsQuicTest
 RUN /usr/share/dotnet/dotnet build -c release ./MsQuicTest
 
+COPY ./runtest.sh .
+RUN chmod u+x ./runtest.sh
+
 # 14:35:07.9600912[Info] thisOrContextObject: (null), memberName: .cctor, message: Unable to load MsQuic library version '2'.
-CMD /usr/share/dotnet/dotnet run -c release --project ./MsQuicTest/MsQuicTest.csproj
+CMD ./runtest.sh

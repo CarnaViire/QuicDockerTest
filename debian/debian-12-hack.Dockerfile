@@ -18,4 +18,7 @@ RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 8
 COPY ./MsQuicTest MsQuicTest
 RUN /usr/share/dotnet/dotnet build -c release ./MsQuicTest
 
-CMD /usr/share/dotnet/dotnet run -c release --project ./MsQuicTest/MsQuicTest.csproj
+COPY ./runtest.sh .
+RUN chmod u+x ./runtest.sh
+
+CMD ./runtest.sh

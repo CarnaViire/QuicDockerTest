@@ -25,7 +25,7 @@ function Test-Execute {
         $Expr += " " + $Parameter
     }
 
-    write-host $Expr
+    write-host $Expr -ForegroundColor blue
     Invoke-Expression $Expr
 }
 
