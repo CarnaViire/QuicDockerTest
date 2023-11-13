@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM ubuntu:18.04
 
 RUN apt-get update && \
     apt-get install -y \
@@ -8,15 +8,12 @@ RUN apt-get update && \
         software-properties-common \
         vim
 
-COPY  microsoft.asc /tmp
-RUN apt-key add /tmp/microsoft.asc && \
-    apt-add-repository https://packages.microsoft.com/debian/12/prod && \
-    rm /tmp/microsoft.asc
+RUN apt-get install -y \
+    libnuma-dev
 
-# 2.046 E: Unable to locate package libmsquic
-RUN apt-get update && \
-    apt-get install -y libmsquic && \
-    rm -rf /var/lib/apt/lists/*
+RUN curl -LO https://packages.microsoft.com/ubuntu/20.04/prod/pool/main/libm/libmsquic/libmsquic_2.2.2_amd64.deb && \
+    dpkg -i libmsquic_*.deb && \
+    rm -f libmsquic_*.deb
 
 RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 8.0.1xx --quality daily --install-dir /usr/share/dotnet 
 

@@ -8,10 +8,15 @@ RUN apt-get update && \
         software-properties-common \
         vim
 
-# !HACK! - msquic package for Debian 12 is not available yet; we need a package with OpenSSL 3
-RUN curl -LO https://packages.microsoft.com/debian/12/prod/pool/main/libm/libmsquic/libmsquic_2.2.4_amd64.deb && \
-    dpkg -i libmsquic_*.deb && \
-    rm -f libmsquic_*.deb
+COPY  microsoft.asc /tmp
+RUN apt-key add /tmp/microsoft.asc && \
+    apt-add-repository https://packages.microsoft.com/debian/12/prod && \
+    apt-add-repository https://packages.microsoft.com/debian/12/prod && \
+    rm /tmp/microsoft.asc
+
+RUN apt-get update && \
+    apt-get install -y libmsquic && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 8.0.1xx --quality daily --install-dir /usr/share/dotnet 
 
