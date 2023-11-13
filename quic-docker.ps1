@@ -1,7 +1,8 @@
-$distros = ("alpine", "3.15"), `
-    ("alpine", "3.16"), `
-    ("alpine", "3.17"), `
-    ("alpine", "3.18"), `
+$distros = `
+    #("alpine", "3.15"), `
+    #("alpine", "3.16"), `
+    #("alpine", "3.17"), `
+    #("alpine", "3.18"), `
     ("almalinux", "8"), `
     ("almalinux", "9"), `
     ("centos", "stream8"), `
